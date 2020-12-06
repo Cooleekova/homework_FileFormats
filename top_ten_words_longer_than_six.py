@@ -1,20 +1,25 @@
 
 # создаю функцию words_count, которая обходит циклом список слов,
-# все слова длиннее шести символов сохраняет в словарь, где ключом
-# становится количество повторений слова, а значением по ключу само слово.
-# ключи словаря сортируются по убыванию, их значения выводятся в новый список top_ten
+# все слова длиннее шести символов сохраняет в словарь в качестве ключей.
+# Следующий цикл снова прходит по списку слов и считает каждое повторение слова.
+# значения словаря сортируются по убыванию, ключи словаря выводятся список top_ten
+
+length = 6
+top = 10
 
 def words_count(news):
     news_dict = dict()
     top_ten = list()
     for word in news:
-        if len(word) > 6:
-        # if len(word) >= 6: из задания было неясно, включать ли слова из шести букв в ТОП
-            news_dict[news.count(word)] = word
-            freq = sorted(list(news_dict.keys()), reverse = True)
+        if len(word) > length:
+            news_dict[word] = 1
+    for word in news:
+        if word in news_dict.keys():
+            news_dict[word] += 1
+    freq = sorted(list(news_dict.values()), reverse = True)
     for k, v in news_dict.items():
-        if k in (freq[0:11]):
-            top_ten.extend(v.split())
+        if v in (freq[0:(top+1)]):
+            top_ten.extend(k.split())
     return top_ten
 
 # программа для файла в формате json
