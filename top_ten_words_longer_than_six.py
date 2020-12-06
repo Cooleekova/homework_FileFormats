@@ -7,6 +7,7 @@
 length = 6
 top = 10
 
+
 def words_count(news):
     news_dict = dict()
     top_ten = list()
@@ -16,13 +17,16 @@ def words_count(news):
     for word in news:
         if word in news_dict.keys():
             news_dict[word] += 1
-    freq = sorted(list(news_dict.values()), reverse = True)
+    freq = sorted(list(news_dict.values()), reverse=True)
     for k, v in news_dict.items():
-        if v in (freq[0:(top+1)]):
+        if v in (freq[0:(top)]):
             top_ten.extend(k.split())
+        elif len(top_ten) == top:
+            break
     return top_ten
 
 # программа для файла в формате json
+
 
 import json
 
@@ -68,7 +72,7 @@ xml_data = root.findall('channel/item')
 
 all_news_xml = list()
 for news in xml_data:
-    all_news_xml.extend((news.find('description').text).split())
+    all_news_xml.extend(news.find('description').text.split())
 
 # вызываю функцию words_count для списка слов, полученного из файла xml
 
